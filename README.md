@@ -1,143 +1,103 @@
 # Tango-python-sdk
 
-This repository contains the `tango-python-sdk` class and an example application that demonstrates its usage.
+The `tango-python-sdk` provides a Python interface for generating embeddings from images, getting distances and comparing the images. 
 
 ## Table of Contents
 - [Installation](#installation)
-- [Usage](#usage)
+- [Quick Start](#quick-start)
 - [API Documentation](#api-documentation)
-- [Example App](#example-app)
-  - [Installation](#example-app-installation)
 
 ## Installation
-We recommend using the latest version of Python. This SDK supports Python 3.6 and newer.
 
 ### Prerequisites
-- Python 3.6+
-- Numpy 
-- Pillow
+- Python 3.6 or newer
+- Required libraries: Numpy, Pillow
 
-### Instructions:
+### Steps:
 
-1. **Download the SDK**: Download the `tango_python_sdk-1-0-0.whl` file from this [link](#provide-the-link-here).
-2. **Install the SDK**: Navigate to the directory where the `.whl` file is located and run:
+1. **Download the SDK**: Fetch the `tango_python_sdk-1-0-0.whl` file from the provided [link](#provide-the-link-here).
+2. **Install the SDK**: Navigate to the directory containing the `.whl` file and execute:
    ```bash
    pip install tango_python_sdk-1-0-0.whl
    ```
-Got it. Here's the updated "Usage" section with examples for all three methods:
 
----
+## Quick Start
 
-## Usage
-
-### get_embedding
-
-Here's how to use the SDK's `get_embedding` function:
+### 1. Extract Embeddings:
 
 ```python
 from tango_python_sdk import FaceFactor
 
 face_factor = FaceFactor()
 embedding = face_factor.get_embedding(image_path="path_to_image.jpg")
-print(embedding.embedding)  # This will print the embedding of the image
+print(embedding.embedding)  # Outputs the embedding of the image
 ```
 
-### get_distance
-
-To compute the distance between two embeddings:
+### 2. Compute Distance Between Embeddings:
 
 ```python
 embedding_one = face_factor.get_embedding(image_path="path_to_image1.jpg").embedding
 embedding_two = face_factor.get_embedding(image_path="path_to_image2.jpg").embedding
 
 distance_result = face_factor.get_distance(embedding_one, embedding_two)
-print(distance_result.distance)  # This will print the distance between the two embeddings
+print(distance_result.distance)  # Outputs the distance between the two embeddings
 ```
 
-### compare
-
-To compare two images:
+### 3. Compare Two Images:
 
 ```python
 image_path_1 = "path_to_image1.jpg"
 image_path_2 = "path_to_image2.jpg"
 
 compare_result = face_factor.compare(image_path_1=image_path_1, image_path_2=image_path_2)
-print(compare_result.is_similar)  # This will print True if the images are similar, False otherwise
+print(compare_result.is_similar)  # Outputs True if the images are similar, otherwise False
 ```
----
 
 ## API Documentation
 
-The `FaceFactor` class provides a set of functionalities to work with face embeddings and comparisons. Below are the methods available in the SDK:
+The `FaceFactor` class in the SDK offers functionalities for face embeddings and comparisons. Here's a detailed breakdown:
 
 ### get_embedding
 
-```python
-get_embedding(image_path: str = None, image_data: np.array = None) -> GetEmbeddingResult
-```
-
-This method takes an image either via a path or as numpy data and returns its face embedding.
+Obtain the embedding of an image.
 
 **Parameters:**
-
-- `image_path`: Directory path to the image file. Either `image_path` or `image_data` should be provided, not both.
+- `image_path`: Directory path to the image. Either `image_path` or `image_data` should be provided, not both.
 - `image_data`: Image data in numpy RGB format. Either `image_path` or `image_data` should be provided, not both.
 
 **Returns:**
-
-- `GetEmbeddingResult` object containing:
-  - `status`: 0 if successful, -1 if any error.
-  - `message`: Message from the operation.
-  - `embedding`: Embedding of the image.
-
-**Example:**
-
-```python
-face_factor = FaceFactor()
-embedding_result = face_factor.get_embedding(image_path="path_to_image.jpg")
-if embedding_result.status == 0:
-    print("Embedding:", embedding_result.embedding)
-else:
-    print("Error:", embedding_result.message)
-```
+- `GetEmbeddingResult` object with attributes:
+  - `status`: 0 for success, -1 for errors.
+  - `message`: Descriptive message from the operation.
+  - `embedding`: Image's embedding.
 
 ### get_distance
 
-```python
-get_distance(embedding_one: list, embedding_two: list) -> GetDistanceResult
-```
-
-This method takes two face embeddings and computes the distance between them.
+Compute the distance between two face embeddings.
 
 **Parameters:**
-
-- `embedding_one`: The first embedding vector.
-- `embedding_two`: The second embedding vector.
+- `embedding_one`: First embedding vector.
+- `embedding_two`: Second embedding vector.
 
 **Returns:**
-
-- `GetDistanceResult` object containing:
-  - `status`: 0 if successful, -1 if any error.
-  - `message`: Message from the operation.
-  - `distance`: Distance between the two embeddings.
+- `GetDistanceResult` object with attributes:
+  - `status`: 0 for success, -1 for errors.
+  - `message`: Descriptive message from the operation.
+  - `distance`: Distance between the embeddings.
 
 ### compare
 
-```python
-compare(image_path_1: str = None, image_data_1: np.array = None, image_path_2: str = None, image_data_2: np.array = None) -> CompareResult
-```
-
-This method compares two images to determine if they are similar.
+Compare two images to determine their similarity.
 
 **Parameters:**
-
-- `image_path_1`: Directory path to the first image file. Either `image_path_1` or `image_data_1` should be provided, not both.
+- `image_path_1`: Directory path to the first image. Either `image_path_1` or `image_data_1` should be provided, not both.
 - `image_data_1`: Image data of the first image in numpy RGB format. Either `image_path_1` or `image_data_1` should be provided, not both.
-- `image_path_2`: Directory path to the second image file. Either `image_path_2` or `image_data_2` should be provided, not both.
+- `image_path_2`: Directory path to the second image. Either `image_path_2` or `image_data_2` should be provided, not both.
 - `image_data_2`: Image data of the second image in numpy RGB format. Either `image_path_2` or `image_data_2` should be provided, not both.
 
 **Returns:**
-
-- `CompareResult` object containing the comparison result, status, and message.
+- `CompareResult` object with attributes:
+  - `status`: 0 for success, -1 for errors.
+  - `message`: Descriptive message from the operation.
+  - `is_similar`: Boolean indicating if the images are similar.
 
