@@ -52,7 +52,6 @@ def test_compare(face_factor, image_path_1, image_path_2):
     """Test the compare function."""
     print(colored("compare\n" + "=" * 25, "green"))
     start_time = default_timer()
-    print(image_path_1,image_path_2)
     result = face_factor.compare(image_path_1=image_path_1, image_path_2=image_path_2)
     print(f"Duration: {default_timer() - start_time}\n")
     print(f"Status: {result.status}\nResult: {result.is_similar}\nMessage: {result.message}")

@@ -1,5 +1,3 @@
-"""Factor implements the functionalities of each factors to generate and verify Private IDs .
-"""
 import os
 
 import platform
@@ -38,6 +36,7 @@ class FaceFactor(metaclass=Singleton):
         -------
         get_embedding
         get_distance
+        compare
     
     """
 
