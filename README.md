@@ -24,7 +24,13 @@ We recommend using the latest version of Python. This SDK supports Python 3.6 an
    ```bash
    pip install tango_python_sdk-1-0-0.whl
    ```
+Got it. Here's the updated "Usage" section with examples for all three methods:
+
+---
+
 ## Usage
+
+### get_embedding
 
 Here's how to use the SDK's `get_embedding` function:
 
@@ -33,7 +39,33 @@ from tango_python_sdk import FaceFactor
 
 face_factor = FaceFactor()
 embedding = face_factor.get_embedding(image_path="path_to_image.jpg")
+print(embedding.embedding)  # This will print the embedding of the image
 ```
+
+### get_distance
+
+To compute the distance between two embeddings:
+
+```python
+embedding_one = face_factor.get_embedding(image_path="path_to_image1.jpg").embedding
+embedding_two = face_factor.get_embedding(image_path="path_to_image2.jpg").embedding
+
+distance_result = face_factor.get_distance(embedding_one, embedding_two)
+print(distance_result.distance)  # This will print the distance between the two embeddings
+```
+
+### compare
+
+To compare two images:
+
+```python
+image_path_1 = "path_to_image1.jpg"
+image_path_2 = "path_to_image2.jpg"
+
+compare_result = face_factor.compare(image_path_1=image_path_1, image_path_2=image_path_2)
+print(compare_result.is_similar)  # This will print True if the images are similar, False otherwise
+```
+---
 
 ## API Documentation
 
