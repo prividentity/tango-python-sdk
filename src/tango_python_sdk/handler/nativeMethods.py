@@ -8,14 +8,13 @@ from ctypes import POINTER, c_uint8, c_int, c_float, c_bool, byref
 
 
 class NativeMethods:
-    def __init__(self, api_key: str, server_url: str):
+    def __init__(self):
         try:
             self._library_path = pathlib.Path(__file__).parent.joinpath("lib")
 
             if platform.system() == "Linux":
                 self._load_dependencies_for_linux()
 
-            self._initialize_attributes(api_key, server_url)
             self._face_setup()
         except Exception as e:
             raise RuntimeError(f"Failed to initialize NativeMethods: {e}")
@@ -31,10 +30,6 @@ class NativeMethods:
         """Load the main library."""
         self._libtango = ctypes.CDLL(str(path.resolve()))
 
-    def _initialize_attributes(self, api_key, server_url):
-        """Initialize basic attributes."""
-        self._api_key = api_key
-        self._server_url = server_url
 
     def _face_setup(self):
        

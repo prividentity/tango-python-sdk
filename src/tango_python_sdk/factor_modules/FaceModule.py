@@ -15,10 +15,10 @@ logger = logging.getLogger(__name__)
 
 class Face(metaclass=Singleton):
 
-    def __init__(self, api_key: str, server_url: str):
+    def __init__(self):
         self.message = Message()
         self.COMPARE_THRESHOLD=1.01
-        self.face_factor_processor = NativeMethods(api_key=api_key, server_url=server_url)
+        self.face_factor_processor = NativeMethods()
 
     def _handle_error(self, e, message):
         logger.error(f"Exception: {e}, Traceback: {traceback.format_exc()}")

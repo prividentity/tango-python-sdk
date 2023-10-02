@@ -8,7 +8,7 @@ from timeit import default_timer
 import numpy as np
 from PIL import Image
 from termcolor import colored
-from src.cryptonets_python_sdk.factor import FaceFactor
+from src.tango_python_sdk.factor import FaceFactor
 
 
 def image_path_to_array(image_path: str) -> np.ndarray:
@@ -57,8 +57,7 @@ def test_compare(face_factor, image_path_1, image_path_2):
     print(f"Status: {result.status}\nResult: {result.is_similar}\nMessage: {result.message}")
 
 if __name__ == "__main__":
-    os.environ['PI_SERVER_URL'] = 'https://api.devel.cryptonets.ai/node'
-    os.environ['PI_API_KEY'] = '00000000000000001962'
+
     face_factor, image_path_1 = setup_test("8.png")
     _, image_path_2 = setup_test("8.png") 
  

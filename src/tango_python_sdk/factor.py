@@ -19,13 +19,7 @@ from .settings.supportedPlatforms import SupportedPlatforms
 
 class FaceFactor(metaclass=Singleton):
     """
-        Parameters
-        ----------
-        api_key : str
-            The API key for using the FaceFactor server.
 
-        server_url : str
-            The URL of the FaceFactor server.
 
         Returns
         -------
@@ -40,38 +34,19 @@ class FaceFactor(metaclass=Singleton):
     
     """
 
-    def __init__(self, api_key: str = None, server_url: str = None):
+    def __init__(self):
 
         try:
             if platform.system() not in SupportedPlatforms.supportedOS.value:
                 raise OSError("Invalid OS")
-            if server_url is None and (os.environ.get('PI_SERVER_URL') is None or len(
-                    os.environ.get('PI_SERVER_URL')) <= 0):
-                raise ValueError("Server URL has to be configured")
-            if api_key is None and (os.environ.get('PI_API_KEY') is None or len(
-                    os.environ.get('PI_API_KEY')) <= 0):
-                raise ValueError("API Key is required.")
-
-            if server_url is None:
-                self._server_url = os.environ.get('PI_SERVER_URL')
-            else:
-                self._server_url = server_url
-            if api_key is None:
-                self._api_key = os.environ.get('PI_API_KEY')
-            else:
-                self._api_key = api_key
                 
-            self.face_factor = Face(api_key=self._api_key, server_url=self._server_url)
+            self.face_factor = Face()
             self.message = Message()
         except ValueError as exp:
             print("Initialization Failed: {}\n".format(exp))
-            print("Please refer to the usage documentation for setting up "
-                  "Factor:: \nhttps://docs.private.id/cryptonets-python-sdk/usage.html")
             sys.exit(1)
         except OSError as exp:
             print("Initialization Failed: {}\n".format(exp))
-            print("Please refer to the usage documentation for setting up "
-                  "Factor:: \nhttps://docs.private.id/cryptonets-python-sdk/usage.html")
             sys.exit(1)
 
 
@@ -122,7 +97,6 @@ class FaceFactor(metaclass=Singleton):
 
         except Exception as e:
             print(f"Oops: {e}\nTrace: {traceback.format_exc()}")
-            print("Issue Tracker:: \nhttps://github.com/prividentity/cryptonets-python-sdk/issues")
             return GetEmbeddingResult(message="Error occurred while getting embedding.")
     def get_distance(self, embedding_one: list, embedding_two: list) -> GetDistanceResult:
         """
@@ -165,7 +139,6 @@ class FaceFactor(metaclass=Singleton):
 
         except Exception as e:
             print(f"Oops: {e}\nTrace: {traceback.format_exc()}")
-            print("Issue Tracker:: \nhttps://github.com/prividentity/cryptonets-python-sdk/issues")
             return GetDistanceResult(message="Error occurred while computing distance.")
     
     def compare(self, image_path_1: str = None, image_data_1: np.array = None, 
@@ -217,18 +190,11 @@ class FaceFactor(metaclass=Singleton):
             return self.face_factor.compare(image_data_1=img_data_1, image_data_2=img_data_2)
         except Exception as e:
             print("Oops: {}\nTrace: {}".format(e, traceback.format_exc()))
-            print("Issue Tracker:: \nhttps://github.com/prividentity/cryptonets-python-sdk/issues")
             return CompareResult(message=self.message.EXCEPTION_ERROR_COMPARE)
         
 
 
-    @property
-    def api_key(self) -> str:
-        return self._api_key
 
-    @property
-    def server_url(self) -> str:
-        return self._server_url
 
 if __name__ == "__main__":
     pass
