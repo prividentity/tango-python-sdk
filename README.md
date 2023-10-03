@@ -15,10 +15,10 @@ The `tango-python-sdk` provides a Python interface for generating embeddings fro
 
 ### Steps:
 
-1. **Download the SDK**: Fetch the `tango_python_sdk-1-0-0.whl` file from the provided [link](#provide-the-link-here).
+1. **Download the SDK**: Fetch the `tango_python_sdk-1.0.0-py3-none-any.whl` file from the provided [link](https://tango-python-sdk.s3.amazonaws.com/tango_python_sdk-1.0.0-py3-none-any.whl).
 2. **Install the SDK**: Navigate to the directory containing the `.whl` file and execute:
    ```bash
-   pip install tango_python_sdk-1-0-0.whl
+   pip install tango_python_sdk-1.0.0-py3-none-any.whl
    ```
 
 ## Quick Start
@@ -26,7 +26,7 @@ The `tango-python-sdk` provides a Python interface for generating embeddings fro
 ### 1. Extract Embeddings:
 
 ```python
-from tango_python_sdk import FaceFactor
+from tango_python_sdk.factor import FaceFactor
 
 face_factor = FaceFactor()
 embedding = face_factor.get_embedding(image_path="path_to_image.jpg")
