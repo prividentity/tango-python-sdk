@@ -39,10 +39,6 @@ print(embedding.embedding)  # Outputs the embedding of the image
 
 Gives back the distance between the two images. Calculated by using the Euclidean distance between the two FHE representations of the images.
 
-- 1 if the two embeddings belong to the same person, indicating a match.
-- 0 if the two embeddings belong to different individuals, indicating no match.
-- -1 if one or both embeddings are empty
-
 ```python
 embedding_one = face_factor.get_embedding(image_path="path_to_image1.jpg").embedding
 embedding_two = face_factor.get_embedding(image_path="path_to_image2.jpg").embedding
