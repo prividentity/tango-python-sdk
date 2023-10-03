@@ -76,17 +76,17 @@ class NativeMethods:
             return None
         
     def get_distance(self, embedding_one: list, embedding_two: list) -> float:
-        array_type_one = c_float * len(embedding_one)
-        array_type_two = c_float * len(embedding_two)
+        # array_type_one = c_float * len(embedding_one)
+        # array_type_two = c_float * len(embedding_two)
 
-        embedding_one_array = array_type_one(*embedding_one)
-        embedding_two_array = array_type_two(*embedding_two)
+        # embedding_one_array = array_type_one(*embedding_one)
+        # embedding_two_array = array_type_two(*embedding_two)
 
-        distance = self._libtango.tango_get_embeddings_distance(
-            embedding_one_array, len(embedding_one),
-            embedding_two_array, len(embedding_two)
-        )
+        # distance = self._libtango.tango_get_embeddings_distance(
+        #     embedding_one_array, len(embedding_one),
+        #     embedding_two_array, len(embedding_two)
+        # )
 
-
-
-        return distance
+        
+        # calculate euclidean distance
+        return np.linalg.norm(np.array(embedding_one) - np.array(embedding_two))
